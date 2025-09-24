@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Лучший калькулятор</title>
+    <script src="https://cdn.jsdelivr.net/npm/brython@3.11.0/brython.min.js"></script>
+  </head>
+  <body onload="brython()">
+    <h2>Самый лучший калькулятор (завтра подамся в гугл)</h2>
+
+    <p>Введи числа и операцию:</p>
+    <input id="a" type="number" placeholder="Первое намбер" />
+    <input id="b" type="number" placeholder="Второе намбер" />
+    <input id="op" type="text" placeholder="+, -, *, /" />
+    <button id="btn">Посчитать</button>
+
+    <p>Результат: <span id="result"></span></p>
+
+    <script type="text/python">
+      from browser import document
+
+      def calq(a, b, operation):
+          match operation:
+              case "+":
+                  return a + b
+              case "-":
+                  return a - b
+              case "*":
+                  return a * b
+              case "/":
+                  if b != 0:
+                      return a / b
+                  else:
+                      return "Здесь на ноль не делят, БРЫСЬ"
+              case _:
+                  return "Такой операции нет Пошёл вон, позорник".upper()
+
+      def calculate(ev):
+          a = float(document["a"].value)
+          b = float(document["b"].value)
+          op = document["op"].value
+          document["result"].text = str(calq(a, b, op))
+
+      document["btn"].bind("click", calculate)
+    </script>
+  </body>
+</html>
